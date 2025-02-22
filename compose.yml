@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  gmail_reader:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/credentials.json
+    tty: true
