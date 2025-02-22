@@ -25,7 +25,7 @@ def authorize
   credentials
 end
 
-def list_messages(service, user_id = 'me', max_results = 5)
+def list_messages(service, user_id = 'me', max_results = 1)
   result = service.list_user_messages(user_id, max_results: max_results)
   messages = result.messages || []
   
@@ -36,10 +36,12 @@ def list_messages(service, user_id = 'me', max_results = 5)
       msg = service.get_user_message(user_id, message.id)
       subject = msg.payload.headers.find { |h| h.name == 'Subject' }&.value
       from = msg.payload.headers.find { |h| h.name == 'From' }&.value
+      parts = msg.payload.parts || []
 
       puts "\n-----"
       puts "From: #{from}"
       puts "Subject: #{subject}"
+      pp parts
     end
   end
 end
