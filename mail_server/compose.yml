@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  mail_server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - type: bind
+        source: ./configs/main.cf
+        target: /etc/postfix/main.cf
+    ports:
+      - "25:25"
